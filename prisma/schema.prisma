@@ -17,4 +17,28 @@ model Book {
   coverImage String
   point      Int
   tags       String[]
+  orders     Order[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  username   String
+  password   String
+  point      Int
+  orders    Order[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Order {
+  id         Int       @id @default(autoincrement()) 
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     Int?
+  book       Book?     @relation(fields: [bookId], references: [id])
+  bookId
+  status     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
