@@ -7,7 +7,6 @@ async function main() {
         where: { id: 1 },
         update: {},
         create: {
-        //   id: 1,
           title: 'Book one',
           writer: 'Fred Adebayo',
           coverImage: 'https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._AC_SX184_.jpg',
@@ -25,4 +24,4 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
-  });
+});
