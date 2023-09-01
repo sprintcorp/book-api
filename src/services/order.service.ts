@@ -15,8 +15,8 @@ export class OrderService {
         return {'status': HttpStatus.CREATED, 'data':data};
     }
 
-    async cancelOrder(bookId: number, userId: number): Promise<any>{
-        const data = await this.orderRepository.update(userId, bookId);
+    async cancelOrder(id: number): Promise<any>{
+        const data = await this.orderRepository.update(id);
         return {'status': HttpStatus.OK, 'data':data};
     }
 
@@ -25,7 +25,8 @@ export class OrderService {
         return {'status': HttpStatus.OK, 'data':data};
     }
 
-    async listCanceledOrder(): Promise<any>{
-        
+    async listCanceledOrder(userId: number): Promise<any>{
+        const data = await this.orderRepository.cancelledUserOrder(userId);
+        return {'status': HttpStatus.OK, 'data':data};
     }
 }

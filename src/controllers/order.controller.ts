@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 import { OrderDto } from 'src/dto/order.dto';
 import { JwtAuthGuard } from 'src/middlewares/authentication.middleware';
 import { OrderService } from 'src/services/order.service';
@@ -14,17 +14,24 @@ export class OrderController {
         return res.status(order.status).json(order.data); 
     }
 
-    @Put('cancel')
+    @Put('cancel/:id')
     @UseGuards(JwtAuthGuard)
-    async cancelOrder(@Res() res, @Req() req, @Body() body: OrderDto){
-        const order = await this.orderService.cancelOrder(body.bookId, req.user.id);
+    async cancelOrder(@Res() res, @Req() req, @Param('id') id){
+        const order = await this.orderService.cancelOrder(id);
         return res.status(order.status).json(order.data); 
     }
 
     @Get('list')
     @UseGuards(JwtAuthGuard)
-    async myOrder(@Res() res, @Req() req){
+    async myOrders(@Res() res, @Req() req){
         const order = await this.orderService.listOrder(req.user.id);
+        return res.status(order.status).json(order.data);
+    }
+
+    @Get('cancelled')
+    @UseGuards(JwtAuthGuard)
+    async myCancelledOrders(@Res() res, @Req() req){
+        const order = await this.orderService.listCanceledOrder(req.user.id);
         return res.status(order.status).json(order.data);
     }
 }
