@@ -1,4 +1,4 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable, SetMetadata, UnprocessableEntityException } from '@nestjs/common';
 
 import {
   registerDecorator,
@@ -7,6 +7,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UserRepository } from 'src/repositories/user.repository';
 import { UserService } from 'src/services/user.service';
 
 export function isUsernameUnique(validationOptions?: ValidationOptions) {
@@ -23,14 +24,14 @@ export function isUsernameUnique(validationOptions?: ValidationOptions) {
 @ValidatorConstraint({ name: 'username', async: true })
 @Injectable()
 export class CustomUsernamevalidation implements ValidatorConstraintInterface {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async validate(value: string): Promise<boolean> {
-    console.log(value);
+    // console.log(value);
     // const user = await this.prisma.user.findFirst({ where: { username: value } });
     // const user = await this.prisma.user.create({ data: {'username':value,'password':'password'} });
-    const user = await this.userService.getUser(value);
-    console.log(user);
+    const user = await this.userRepository.findOne(value);
+    // console.log(user);
 // 
       // .then((user) => {
         // if (user) {
@@ -41,3 +42,6 @@ export class CustomUsernamevalidation implements ValidatorConstraintInterface {
       // });
   }
 }
+
+export const IS_PUBLIC_KEY = 'isPublic';
+export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);

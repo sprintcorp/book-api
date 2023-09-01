@@ -1,14 +1,21 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
-// import { PrismaService } from './prisma/prisma.service';
-// import { UserController } from './controllers/user.controller';
-// import { OrderController } from './controllers/order.controller';
-// import { BookController } from './controllers/book.controller';
 import { UserModule } from './modules/user.module';
-// import { UserService } from './services/user.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+import { BookModule } from './modules/book.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [
+        ConfigModule.forRoot(),
+        PassportModule,
+        JwtModule.register({
+            global: true,
+            secret: process.env.JWT_SECRET,
+            signOptions: { expiresIn: process.env.JWT_EXPIRATION_TIME },
+        }),
+        UserModule, BookModule],
   controllers: [],
   providers: [],
 })
