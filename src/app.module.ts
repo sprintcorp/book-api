@@ -5,6 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { BookModule } from './modules/book.module';
+import { OrderModule } from './modules/order.module';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { BookModule } from './modules/book.module';
             secret: process.env.JWT_SECRET,
             signOptions: { expiresIn: process.env.JWT_EXPIRATION_TIME },
         }),
-        UserModule, BookModule],
+        UserModule, BookModule, OrderModule],
   controllers: [],
   providers: [],
 })
