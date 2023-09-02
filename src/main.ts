@@ -12,7 +12,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: ['amqps://scfwsotk:f52LYqeskoX8pUYbr-8Il9wlYy8-yTEI@crow.rmq.cloudamqp.com/scfwsotk'],
-      queue: 'hello_world',
+      queue: 'book_api',
       queueOptions: {
         durable: false
       },

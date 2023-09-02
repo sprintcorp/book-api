@@ -2,7 +2,6 @@ import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { Book } from 'src/entities/book.entity';
 import { JwtAuthGuard } from 'src/middlewares/authentication.middleware';
 import { BookService } from 'src/services/book.service';
-import { RabbitMQService } from 'src/services/rabbitmq.service';
 
 @Controller('/api/book')
 export class BookController {

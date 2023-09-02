@@ -6,7 +6,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { BookModule } from './modules/book.module';
 import { OrderModule } from './modules/order.module';
-import { RabbitMQModule } from './modules/rabbitmq.module';
 
 @Module({
   imports: [
@@ -17,7 +16,7 @@ import { RabbitMQModule } from './modules/rabbitmq.module';
             secret: process.env.JWT_SECRET,
             signOptions: { expiresIn: process.env.JWT_EXPIRATION_TIME },
         }),
-        UserModule, BookModule, OrderModule, RabbitMQModule],
+        UserModule, BookModule, OrderModule],
   controllers: [],
   providers: [],
 })
