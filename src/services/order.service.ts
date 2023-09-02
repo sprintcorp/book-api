@@ -30,8 +30,16 @@ export class OrderService {
         return {'status': HttpStatus.CREATED, 'data':data};
     }
 
-    async cancelOrder(id: number): Promise<any>{
-        const data = await this.orderRepository.update(id);
+    async cancelOrder(bookId: number, user: any): Promise<any>{
+
+        const book = await this.bookRepository.getBook(bookId);
+        
+        const newUserPoint = user.point + book.point;
+
+        const data = await this.orderRepository.update(bookId, user.id);
+        if(data){
+            await this.userRepository.updateUser(user.id, newUserPoint);
+        }
         return {'status': HttpStatus.OK, 'data':data};
     }
 

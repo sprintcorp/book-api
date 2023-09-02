@@ -1,11 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, MinLength } from "class-validator";
-import { isUsernameUnique } from "src/utils/decorator.utils";
 
 export class UserDTO{
     @IsNotEmpty()
     @IsString()
-    // @isUsernameUnique({ message: 'username already exist' })
     @ApiProperty()
     public username: string;
 

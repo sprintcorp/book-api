@@ -10,9 +10,9 @@ export class OrderRepository {
         return await this.prisma.order.create({ data: data });
     }
 
-    async update(id: number){
+    async update(bookId: number, userId: number){
         return await this.prisma.order.update({
-            where: {id} ,
+            where: {userId_bookId:{bookId, userId}} ,
             data: {status:'cancelled'},
         });
     }

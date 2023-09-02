@@ -14,10 +14,10 @@ export class OrderController {
         return res.status(order.status).json(order.data); 
     }
 
-    @Put('cancel/:id')
+    @Put('cancel')
     @UseGuards(JwtAuthGuard)
-    async cancelOrder(@Res() res, @Req() req, @Param('id') id){
-        const order = await this.orderService.cancelOrder(id);
+    async cancelOrder(@Res() res, @Req() req, @Body() body: OrderDto){
+        const order = await this.orderService.cancelOrder(body.bookId, req.user);
         return res.status(order.status).json(order.data); 
     }
 

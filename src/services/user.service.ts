@@ -13,6 +13,9 @@ export class UserService {
     
     async createUser(userData: UserDTO):Promise<User>{
         try{
+            if(!await this.userRepository.findOne(userData.username)){
+              throw new UnprocessableEntityException(`User exit with this useraname: ${userData.username}`);
+            }
             const salt = await bcrypt.genSalt();
             userData.password = await bcrypt.hash(userData.password, salt);
             const user = await this.userRepository.save(userData);
