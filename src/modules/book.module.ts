@@ -13,6 +13,6 @@ import { BookService } from 'src/services/book.service';
     providers:[BookService, PrismaService, BookRepository, UserRepository, {
         provide: APP_GUARD,
         useClass: JwtStrategy,
-      }]
+      }],
 })
 export class BookModule {}

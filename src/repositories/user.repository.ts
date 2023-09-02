@@ -12,4 +12,11 @@ export class UserRepository {
     async findOne(username){
         return await this.prisma.user.findUnique({ where: { username: username } })
     }
+
+    async updateUser(id: number,point: number){
+        return await this.prisma.user.update({
+            where: {id} ,
+            data: {point: point},
+        });
+    }
 }

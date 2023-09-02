@@ -10,7 +10,7 @@ export class OrderController {
     @Post('create')
     @UseGuards(JwtAuthGuard)
     async createOrder(@Res() res, @Req() req, @Body() body: OrderDto ): Promise<any>{
-        const order = await this.orderService.createOrder(body.bookId, req.user.id);
+        const order = await this.orderService.createOrder(body.bookId, req.user);
         return res.status(order.status).json(order.data); 
     }
 

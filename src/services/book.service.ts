@@ -14,4 +14,8 @@ export class BookService {
             throw e;
         }
     }
+
+    async getHello(){
+        console.log("hello world");
+    }
 }

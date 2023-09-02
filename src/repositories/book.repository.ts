@@ -9,4 +9,7 @@ export class BookRepository {
         return await this.prisma.book.findMany();
     }
 
+    async getBook(id: number): Promise<any>{
+        return await this.prisma.book.findUnique({ where: { id } })
+    }
 }

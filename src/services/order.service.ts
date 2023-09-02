@@ -1,17 +1,32 @@
-import { HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { BookRepository } from "src/repositories/book.repository";
 import { OrderRepository } from "src/repositories/order.repository";
+import { UserRepository } from "src/repositories/user.repository";
 
 @Injectable()
 export class OrderService {
-    constructor(private orderRepository: OrderRepository){}
+    constructor(private orderRepository: OrderRepository, 
+        private bookRepository: BookRepository, private userRepository: UserRepository){}
 
-    async createOrder(bookId: number, userId: number): Promise<any>{
+    async createOrder(bookId: number, user: any): Promise<any>{
         const orderData = {
             'bookId' : bookId,
-            'userId' : userId,
+            'userId' : user.id,
             'status': 'approved'
         };
+        const book = await this.bookRepository.getBook(bookId);
+
+        if(user.point < book.point){
+            throw new HttpException('You do not have sufficient point to make this order', HttpStatus.FORBIDDEN)
+        }
+
+        const newUserPoint = user.point - book.point;
         const data = await this.orderRepository.save(orderData);
+
+        if(data){
+            await this.userRepository.updateUser(user.id, newUserPoint);
+        }
+        
         return {'status': HttpStatus.CREATED, 'data':data};
     }
 
