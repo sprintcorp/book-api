@@ -6,11 +6,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { BookRepository } from 'src/repositories/book.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { BookService } from 'src/services/book.service';
+import { LoggingService } from 'src/services/logger.service';
 
 @Module({
     imports: [],
     controllers:[BookController],
-    providers:[BookService, PrismaService, BookRepository, UserRepository, {
+    providers:[BookService, PrismaService, BookRepository, UserRepository,LoggingService, {
         provide: APP_GUARD,
         useClass: JwtStrategy,
       }],
