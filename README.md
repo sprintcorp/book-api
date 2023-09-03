@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Book API to help user get list of books and also purchase those books by adding them to order.
 
 ## Installation
 
@@ -44,6 +44,8 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+The project runs on `PORT 3000` and the swagger api documentation is avalable on `http://localhost:3000/api`, post man documentation `https://documenter.getpostman.com/view/7305732/2s9Y5cugEz`.
 
 ## Test
 
